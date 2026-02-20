@@ -1,0 +1,30 @@
+title Text Scroll Demo
+
+axes x=20 y=20 w=900 h=600 fill=#0f172a stroke=#1e293b pan zoom
+
+  # plain scroll — fixed font, wheel to scroll
+  text 'scroll only' x=10 y=10 w=120 h=18 fontsize=11 ha=center color=#475569
+
+  text 'Paragraph one: The quick brown fox jumps over the lazy dog.\n\nParagraph two: Pack my box with five dozen liquor jugs.\n\nParagraph three: How vividly daft jumping zebras vex.\n\nParagraph four: Sphinx of black quartz, judge my vow.\n\nParagraph five: Waltz, nymph, for quick jigs vex Bud.' x=10 y=32 w=220 h=140 fill=#1e293b stroke=#334155 fontsize=13 color=#e2e8f0 margin=8 scroll
+
+  # scroll + zoom — semantic zoom AND scrollable content
+  text 'scroll + zoom' x=260 y=10 w=140 h=18 fontsize=11 ha=center color=#475569
+
+  text 'Paragraph one: The quick brown fox jumps over the lazy dog.\n\nParagraph two: Pack my box with five dozen liquor jugs.\n\nParagraph three: How vividly daft jumping zebras vex.\n\nParagraph four: Sphinx of black quartz, judge my vow.\n\nParagraph five: Waltz, nymph, for quick jigs vex Bud.' x=260 y=32 w=220 h=140 fill=#1e293b stroke=#334155 fontsize=13 color=#e2e8f0 margin=8 scroll zoom
+
+  # tall narrow box
+  text 'narrow + scroll' x=510 y=10 w=120 h=18 fontsize=11 ha=center color=#475569
+
+  text 'Line one\nLine two\nLine three\nLine four\nLine five\nLine six\nLine seven\nLine eight\nLine nine\nLine ten\nLine eleven\nLine twelve' x=510 y=32 w=120 h=140 fill=#1e293b stroke=#334155 fontsize=13 color=#e2e8f0 margin=6 scroll
+
+  # scroll with ha=center
+  text 'ha=center + scroll' x=660 y=10 w=160 h=18 fontsize=11 ha=center color=#475569
+
+  text 'Centered line one\nCentered line two\nCentered line three\nCentered line four\nCentered line five\nCentered line six\nCentered line seven\nCentered line eight' x=660 y=32 w=200 h=140 fill=#1e293b stroke=#334155 fontsize=13 color=#e2e8f0 ha=center margin=8 scroll
+
+  # scroll inside a nested axes (tests coordinate transform)
+  text 'scroll inside nested axes' x=10 y=200 w=300 h=18 fontsize=11 ha=center color=#475569
+
+  axes x=10 y=222 w=300 h=200 fill=#0a1628 stroke=#1e3a5f pan zoom drag
+
+    text 'Nested: The quick brown fox jumps over the lazy dog.\n\nNested: Pack my box with five dozen liquor jugs.\n\nNested: How vividly daft jumping zebras vex.\n\nNested: Sphinx of black quartz, judge my vow.\n\nNested: Waltz, nymph, for quick jigs vex Bud.' x=10 y=10 w=260 h=160 fill=#1e293b stroke=#334155 fontsize=13 color=#e2e8f0 margin=8 scroll zoom

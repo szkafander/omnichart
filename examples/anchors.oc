@@ -1,0 +1,63 @@
+title Anchor Points Demo
+
+axes x=20 y=20 w=1100 h=750 fill=#0f172a stroke=#1e293b pan zoom
+
+  # ── static section ────────────────────────────────────────────────────────
+  # Lines are placed using anchor references at compile time.
+  # Nodes are not draggable so the static nature is clear.
+
+  text 'Static anchor placement (no drag)' x=30 y=10 w=400 h=18 fontsize=12 color=#475569
+
+  # edges drawn first so they render behind nodes
+  line x1=static_a.bottom_middle.x y1=static_a.bottom_middle.y x2=static_b.top_middle.x  y2=static_b.top_middle.y  stroke=#4a5568 width=2
+  line x1=static_a.middle_right.x  y1=static_a.middle_right.y  x2=static_c.middle_left.x  y2=static_c.middle_left.y  stroke=#4a5568 width=2
+  line x1=static_b.middle_right.x  y1=static_b.middle_right.y  x2=static_c.bottom_left.x  y2=static_c.bottom_left.y  stroke=#4a5568 width=2
+
+  text 'Static A' name=static_a x=30  y=32  w=140 h=50 fill=#1e3a5f stroke=#63b3ed fontsize=13 ha=center va=middle color=#e2e8f0 margin=6
+  text 'Static B' name=static_b x=30  y=152 w=140 h=50 fill=#3b1f5e stroke=#b794f4 fontsize=13 ha=center va=middle color=#e2e8f0 margin=6
+  text 'Static C' name=static_c x=240 y=32  w=140 h=50 fill=#1a3a2a stroke=#68d391 fontsize=13 ha=center va=middle color=#e2e8f0 margin=6
+
+  # ── dynamic section ───────────────────────────────────────────────────────
+  # Same anchor syntax, but nodes are draggable.
+  # Lines track in real time because resolveCoord runs on every draw().
+
+  text 'Dynamic anchor tracking (drag any node)' x=460 y=10 w=500 h=18 fontsize=12 color=#475569
+
+  line x1=node_a.bottom_middle.x y1=node_a.bottom_middle.y x2=node_c.top_middle.x   y2=node_c.top_middle.y   stroke=#4a5568 width=2
+  line x1=node_b.bottom_middle.x y1=node_b.bottom_middle.y x2=node_c.top_middle.x   y2=node_c.top_middle.y   stroke=#4a5568 width=2
+  line x1=node_a.middle_right.x  y1=node_a.middle_right.y  x2=node_b.middle_left.x  y2=node_b.middle_left.y  stroke=#4a5568 width=2
+  line x1=node_c.bottom_middle.x y1=node_c.bottom_middle.y x2=node_d.top_middle.x   y2=node_d.top_middle.y   stroke=#4a5568 width=2
+  line x1=node_c.bottom_middle.x y1=node_c.bottom_middle.y x2=node_e.top_middle.x   y2=node_e.top_middle.y   stroke=#4a5568 width=2
+
+  text 'Node A\nIngestion' name=node_a x=470 y=32  w=150 h=60 fill=#1e3a5f stroke=#63b3ed fontsize=13 ha=center va=middle color=#e2e8f0 margin=6 drag
+  text 'Node B\nExtraction' name=node_b x=660 y=32  w=150 h=60 fill=#1e3a5f stroke=#63b3ed fontsize=13 ha=center va=middle color=#e2e8f0 margin=6 drag
+  text 'Node C\nProcessing' name=node_c x=565 y=172 w=150 h=60 fill=#3b1f5e stroke=#b794f4 fontsize=13 ha=center va=middle color=#e2e8f0 margin=6 drag
+  text 'Node D\nStorage'    name=node_d x=470 y=322 w=150 h=60 fill=#1a3a2a stroke=#68d391 fontsize=13 ha=center va=middle color=#e2e8f0 margin=6 drag
+  text 'Node E\nAlerting'   name=node_e x=660 y=322 w=150 h=60 fill=#3a1a1a stroke=#fc8181 fontsize=13 ha=center va=middle color=#e2e8f0 margin=6 drag
+
+  # ── cubic-bezier section ──────────────────────────────────────────────────
+  # route=cb draws a smooth spline between anchors.
+  # Add the handles flag to show interactive control-point handles.
+
+  text 'Cubic-bezier connectors (route=cb)' x=30 y=420 w=500 h=18 fontsize=12 color=#475569
+
+  line x1=cb_a.middle_right.x y1=cb_a.middle_right.y x2=cb_b.middle_left.x  y2=cb_b.middle_left.y  stroke=#f6ad55 width=2 route=cb handles head
+  line x1=cb_b.bottom_middle.x y1=cb_b.bottom_middle.y x2=cb_c.top_middle.x  y2=cb_c.top_middle.y   stroke=#f6ad55 width=2 route=cb handles tail
+  line x1=cb_a.bottom_middle.x y1=cb_a.bottom_middle.y x2=cb_c.top_middle.x  y2=cb_c.top_middle.y   stroke=#b794f4 width=2 route=cb
+
+  text 'CB Start' name=cb_a x=30  y=450 w=160 h=55 fill=#2a1f0a stroke=#f6ad55 fontsize=13 ha=center va=middle color=#e2e8f0 margin=6 drag
+  text 'CB Mid'   name=cb_b x=250 y=450 w=160 h=55 fill=#2a1f0a stroke=#f6ad55 fontsize=13 ha=center va=middle color=#e2e8f0 margin=6 drag
+  text 'CB End'   name=cb_c x=140 y=600 w=160 h=55 fill=#1a1a3a stroke=#b794f4 fontsize=13 ha=center va=middle color=#e2e8f0 margin=6 drag
+
+  # ── mixed shapes ──────────────────────────────────────────────────────────
+  # Anchor points work on circle and ellipse too.
+
+  text 'Mixed shapes' x=500 y=420 w=400 h=18 fontsize=12 color=#475569
+
+  line x1=circ_a.right.x  y1=circ_a.right.y  x2=rect_z.middle_left.x y2=rect_z.middle_left.y stroke=#4a5568 width=2
+  line x1=rect_z.bottom_middle.x y1=rect_z.bottom_middle.y x2=ellipse_a.top.x y2=ellipse_a.top.y stroke=#4a5568 width=2
+  line x1=circ_a.right.x y1=circ_a.right.y x2=ellipse_a.left.x y2=ellipse_a.left.y stroke=#68d391 width=2 route=cb handles
+
+  circle  name=circ_a   x=550  y=480 r=36   fill=#2d3748 stroke=#f6ad55
+  rect    name=rect_z   x=640  y=456 w=120  h=50  fill=#2d3748 stroke=#68d391 drag
+  ellipse name=ellipse_a x=720 y=590 rx=70  ry=28 fill=#2d3748 stroke=#b794f4 drag

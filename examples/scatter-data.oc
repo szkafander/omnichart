@@ -1,0 +1,7 @@
+title Scatter from CSV
+canvas w=600 h=400
+
+bind data=scatter-data.csv
+  axes x=40 y=40 w=520 h=320 pan zoom resize drag
+    each d in data
+      rect x=d.x y=d.y w=d.r h=d.r fill=d.color drag

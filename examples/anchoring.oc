@@ -1,0 +1,27 @@
+title Anchoring Demo
+
+# Titles that track their axes on drag.
+# The text primitives use x/y references so they follow the axes automatically.
+# Drag either the title or the axes — both move together.
+
+text 'Raw y' x=plot1.top_middle.x y='plot1.top_middle.y - 22' w=plot1.w h=20 origin=top_middle fontsize=13 ha=center color=#94a3b8 drag
+text 'sqrt(y)' x=plot2.top_middle.x y='plot2.top_middle.y - 22' w=plot2.w h=20 origin=top_middle fontsize=13 ha=center color=#94a3b8 drag
+text 'y^2' x=plot3.top_middle.x y='plot3.top_middle.y - 22' w=plot3.w h=20 origin=top_middle fontsize=13 ha=center color=#94a3b8 drag
+
+bind data=transforms-data.csv
+
+  axes name=plot1 x=20 y=60 w=320 h=240 fill=#0f172a stroke=#334155 pan zoom drag
+    each d in data
+      circle x=d.x*14+10 y=200-d.y*2 r=5 fill=#3b82f6
+
+  axes name=plot2 x=370 y=60 w=320 h=240 fill=#0f172a stroke=#334155 pan zoom drag
+    each d in data
+      circle x=d.x*14+10 y=200-sqrt(d.y)*20 r=5 fill=#f97316
+
+  axes name=plot3 x=720 y=60 w=320 h=240 fill=#0f172a stroke=#334155 pan zoom drag
+    each d in data
+      circle x=d.x*14+10 y=200-d.y**2/50 r=5 fill=#22c55e
+
+# Two connectors between plot corners (3-part anchor refs)
+line x1=plot1.top_right.x y1=plot1.top_right.y x2=plot2.top_left.x y2=plot2.top_left.y stroke=#475569 width=1
+line x1=plot2.top_right.x y1=plot2.top_right.y x2=plot3.top_left.x y2=plot3.top_left.y stroke=#475569 width=1

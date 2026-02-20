@@ -1,0 +1,75 @@
+title Text Alignment + Semantic Zoom
+
+axes x=20 y=20 w=730 h=1340 fill=#0f172a stroke=#1e293b pan zoom
+
+  # ── margin=0 ──────────────────────────────────────────────────────────────
+
+  text 'margin=0' x=80 y=8 w=610 h=18 fontsize=12 ha=left color=#64748b
+
+  text 'ha=left'   x=80  y=28 w=190 h=18 fontsize=11 ha=center color=#334155
+  text 'ha=center' x=290 y=28 w=190 h=18 fontsize=11 ha=center color=#334155
+  text 'ha=right'  x=500 y=28 w=190 h=18 fontsize=11 ha=center color=#334155
+
+  text 'va=top'    x=0 y=50  w=72 h=110 fontsize=11 ha=right va=middle color=#334155
+  text 'va=middle' x=0 y=170 w=72 h=110 fontsize=11 ha=right va=middle color=#334155
+  text 'va=bottom' x=0 y=290 w=72 h=110 fontsize=11 ha=right va=middle color=#334155
+
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=80  y=50  w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=left   va=top    color=#e2e8f0 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=290 y=50  w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=center va=top    color=#e2e8f0 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=500 y=50  w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=right  va=top    color=#e2e8f0 zoom
+
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=80  y=170 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=left   va=middle color=#e2e8f0 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=290 y=170 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=center va=middle color=#e2e8f0 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=500 y=170 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=right  va=middle color=#e2e8f0 zoom
+
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=80  y=290 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=left   va=bottom color=#e2e8f0 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=290 y=290 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=center va=bottom color=#e2e8f0 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=500 y=290 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=right  va=bottom color=#e2e8f0 zoom
+
+  # ── margin=8 ──────────────────────────────────────────────────────────────
+
+  text 'margin=8' x=80 y=458 w=610 h=18 fontsize=12 ha=left color=#64748b
+
+  text 'ha=left'   x=80  y=478 w=190 h=18 fontsize=11 ha=center color=#334155
+  text 'ha=center' x=290 y=478 w=190 h=18 fontsize=11 ha=center color=#334155
+  text 'ha=right'  x=500 y=478 w=190 h=18 fontsize=11 ha=center color=#334155
+
+  text 'va=top'    x=0 y=500 w=72 h=110 fontsize=11 ha=right va=middle color=#334155
+  text 'va=middle' x=0 y=620 w=72 h=110 fontsize=11 ha=right va=middle color=#334155
+  text 'va=bottom' x=0 y=740 w=72 h=110 fontsize=11 ha=right va=middle color=#334155
+
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=80  y=500 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=left   va=top    color=#e2e8f0 margin=8 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=290 y=500 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=center va=top    color=#e2e8f0 margin=8 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=500 y=500 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=right  va=top    color=#e2e8f0 margin=8 zoom
+
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=80  y=620 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=left   va=middle color=#e2e8f0 margin=8 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=290 y=620 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=center va=middle color=#e2e8f0 margin=8 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=500 y=620 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=right  va=middle color=#e2e8f0 margin=8 zoom
+
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=80  y=740 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=left   va=bottom color=#e2e8f0 margin=8 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=290 y=740 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=center va=bottom color=#e2e8f0 margin=8 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=500 y=740 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=right  va=bottom color=#e2e8f0 margin=8 zoom
+
+  # ── margin=16 ─────────────────────────────────────────────────────────────
+
+  text 'margin=16' x=80 y=908 w=610 h=18 fontsize=12 ha=left color=#64748b
+
+  text 'ha=left'   x=80  y=928 w=190 h=18 fontsize=11 ha=center color=#334155
+  text 'ha=center' x=290 y=928 w=190 h=18 fontsize=11 ha=center color=#334155
+  text 'ha=right'  x=500 y=928 w=190 h=18 fontsize=11 ha=center color=#334155
+
+  text 'va=top'    x=0 y=950  w=72 h=110 fontsize=11 ha=right va=middle color=#334155
+  text 'va=middle' x=0 y=1070 w=72 h=110 fontsize=11 ha=right va=middle color=#334155
+  text 'va=bottom' x=0 y=1190 w=72 h=110 fontsize=11 ha=right va=middle color=#334155
+
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=80  y=950  w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=left   va=top    color=#e2e8f0 margin=16 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=290 y=950  w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=center va=top    color=#e2e8f0 margin=16 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=500 y=950  w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=right  va=top    color=#e2e8f0 margin=16 zoom
+
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=80  y=1070 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=left   va=middle color=#e2e8f0 margin=16 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=290 y=1070 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=center va=middle color=#e2e8f0 margin=16 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=500 y=1070 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=right  va=middle color=#e2e8f0 margin=16 zoom
+
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=80  y=1190 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=left   va=bottom color=#e2e8f0 margin=16 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=290 y=1190 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=center va=bottom color=#e2e8f0 margin=16 zoom
+  text 'The quick brown fox jumps over the lazy dog near the riverbank at dusk.' x=500 y=1190 w=190 h=110 fill=#1e293b stroke=#334155 fontsize=13 ha=right  va=bottom color=#e2e8f0 margin=16 zoom

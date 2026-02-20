@@ -1,0 +1,50 @@
+title Text Demo
+
+axes x=10 y=10 w=1200 h=800 pan zoom
+    # Title
+    text 'Text Primitive Demo' x=250 y=20 w=300 h=35 fontsize=24 ha=center va=middle color=#ffffff
+
+    # Labels with different alignments
+    text 'Left aligned' x=50 y=100 w=200 h=25 fontsize=14 ha=left va=top color=#88ccff
+    text 'Center aligned' x=300 y=100 w=200 h=25 fontsize=14 ha=center va=top color=#ffcc44
+    text 'Right aligned' x=550 y=100 w=200 h=25 fontsize=14 ha=right va=top color=#ff6688
+
+    # Boxes with background fill and text
+    rect x=50 y=160 w=200 h=80 fill=#1a1a2e stroke=#333
+    text 'Top-left in box' x=50 y=160 w=200 h=80 fontsize=13 ha=left va=top color=#aaaaff
+
+    rect x=300 y=160 w=200 h=80 fill=#1a2e1a stroke=#333
+    text 'Centered in box' x=300 y=160 w=200 h=80 fontsize=13 ha=center va=middle color=#aaffaa
+
+    rect x=550 y=160 w=200 h=80 fill=#2e1a1a stroke=#333
+    text 'Bottom-right' x=550 y=160 w=200 h=80 fontsize=13 ha=right va=bottom color=#ffaaaa
+
+    # Inline formatting
+    text 'This has **bold words** in it' x=50 y=280 w=350 h=25 fontsize=15 color=#ffffff
+    text 'And this has *italic text* here' x=50 y=310 w=350 h=25 fontsize=15 color=#ffffff
+    text 'Plus __underlined text__ too' x=50 y=340 w=350 h=25 fontsize=15 color=#ffffff
+    text '**Bold** and *italic* and __underline__ together' x=50 y=370 w=450 h=25 fontsize=15 color=#dddddd
+
+    # Greek and math symbols
+    text 'Greek: \alpha \beta \gamma \delta \theta \lambda \pi \sigma \omega' x=50 y=420 w=600 h=25 fontsize=15 color=#88ff88
+    text 'Math: \sum \int \nabla \sqrt \inf \pm \neq \leq \geq \times \div' x=50 y=450 w=600 h=25 fontsize=15 color=#ffcc88
+
+    # Word wrap with formatting
+    text 'A **longer paragraph** with *mixed formatting* that should __wrap nicely__ across multiple lines' x=500 y=280 w=180 h=120 fill=#1a1a2e stroke=#444 fontsize=14 ha=left va=top color=#dddddd drag resize
+
+    # Newline demo
+    text 'Line one\nLine two\nLine three' x=500 y=420 w=180 h=65 fill=#222233 stroke=#555 fontsize=14 color=#ffaaff drag resize
+
+    # Margin: uniform margin on all sides
+    text 'margin=0 (no margin)' x=50 y=520 w=200 h=60 fill=#1a1a2e stroke=#446 fontsize=13 color=#aaaaff
+    text 'margin=10' x=300 y=520 w=200 h=60 fill=#1a1a2e stroke=#446 fontsize=13 color=#aaaaff margin=10
+    text 'margin=20' x=550 y=520 w=200 h=60 fill=#1a1a2e stroke=#446 fontsize=13 color=#aaaaff margin=20
+
+    # Margin: per-side overrides
+    text 'margintop=20 marginleft=30' x=50 y=620 w=200 h=80 fill=#2e1a2e stroke=#646 fontsize=13 color=#ffaaff margintop=20 marginleft=30
+    text 'margin=8 margintop=2 marginright=4' x=300 y=620 w=200 h=80 fill=#2e1a2e stroke=#646 fontsize=13 color=#ffaaff margin=8 margintop=2 marginright=4
+
+    axes x=300 y=300 w=300 h=300 pan zoom drag resize
+        bind data=scatter-data.csv
+            each d in data
+                rect x=d.x y=d.y w=d.r h=d.r fill=d.color drag

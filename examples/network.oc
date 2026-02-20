@@ -1,0 +1,19 @@
+title Network Skeleton
+
+axes x=80 y=80 w=1100 h=660 fill=#0f172a stroke=#334155 pan zoom drag resize
+  # edges
+  line x1=220 y1=240 x2=460 y2=140 stroke=#5f6c7a width=2
+  line x1=460 y1=140 x2=760 y2=260 stroke=#5f6c7a width=2
+  line x1=760 y1=260 x2=980 y2=520 stroke=#5f6c7a width=2
+  line x1=220 y1=240 x2=440 y2=520 stroke=#5f6c7a width=2
+  line x1=440 y1=520 x2=760 y2=260 stroke=#5f6c7a width=2
+
+  # nodes
+  circle x=220 y=240 r=14 fill=#68d391
+  circle x=460 y=140 r=14 fill=#63b3ed
+  circle x=760 y=260 r=14 fill=#f6ad55
+  circle x=980 y=520 r=14 fill=#fc8181
+  circle x=440 y=520 r=14 fill=#b794f4
+
+  rect x=100 y=100 w=50 h=100 drag resize
+

@@ -1,0 +1,26 @@
+{
+  "name": "omnichart",
+  "version": "0.1.0",
+  "description": "Generate static HTML graphics from a compact mini-language.",
+  "type": "module",
+  "bin": {
+    "omnichart": "./bin/omnichart.js"
+  },
+  "scripts": {
+    "build": "node ./bin/omnichart.js build ./examples/scatter.oc -o ./out/scatter.html",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "visualization",
+    "graphics",
+    "charts",
+    "dsl",
+    "static-html"
+  ],
+  "license": "MIT"
+}
+
+

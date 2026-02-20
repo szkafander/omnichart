@@ -1,0 +1,23 @@
+title Text Zoom Demo
+
+axes x=40 y=40 w=1100 h=700 fill=#0f172a stroke=#334155 pan zoom
+
+  # edges
+  line x1=190 y1=160 x2=190 y2=260 stroke=#4a5568 width=2
+  line x1=510 y1=160 x2=510 y2=260 stroke=#4a5568 width=2
+  line x1=290 y1=310 x2=410 y2=310 stroke=#4a5568 width=2
+  line x1=190 y1=360 x2=190 y2=460 stroke=#4a5568 width=2
+  line x1=290 y1=510 x2=710 y2=310 stroke=#4a5568 width=2
+
+  # nodes — zoom flag keeps font constant, abbreviates when zoomed out
+  text 'Data Ingestion: Receives raw event streams from upstream producers. Validates schema on arrival, drops malformed records, and emits a structured payload to the processing queue.' x=90 y=60 w=200 h=100 fill=#1e3a5f stroke=#63b3ed strokeWidth=1 color=#e2e8f0 fontsize=13 zoom
+
+  text 'Feature Extraction: Computes rolling aggregates and derived signals from the structured payload. Applies normalisation and encodes categorical fields before forwarding to the model.' x=410 y=60 w=200 h=100 fill=#3b1f5e stroke=#b794f4 strokeWidth=1 color=#e2e8f0 fontsize=13 zoom
+
+  text 'Queue Manager: Buffers inter-stage traffic, enforces back-pressure when downstream is saturated, and provides at-least-once delivery guarantees with a configurable retry policy.' x=90 y=260 w=200 h=100 fill=#1a3a2a stroke=#68d391 strokeWidth=1 color=#e2e8f0 fontsize=13 zoom
+
+  text 'Model Inference: Runs the trained gradient-boosted classifier on each feature vector. Returns a scored record with confidence bounds. Latency target is under 20 ms at p99.' x=410 y=260 w=200 h=100 fill=#3a2a1a stroke=#f6ad55 strokeWidth=1 color=#e2e8f0 fontsize=13 zoom
+
+  text 'Alerting: Monitors scored records for threshold breaches. Deduplicates within a 5-minute window, enriches alerts with context from the metadata store, and pages on-call via PagerDuty.' x=90 y=460 w=200 h=100 fill=#3a1a1a stroke=#fc8181 strokeWidth=1 color=#e2e8f0 fontsize=13 zoom
+
+  text 'Audit Log: Persists every scored record with its input features, model version, and decision timestamp to an append-only store for compliance and post-hoc analysis.' x=610 y=260 w=200 h=100 fill=#2a2a1a stroke=#f6e05e strokeWidth=1 color=#e2e8f0 fontsize=13 zoom

@@ -1,0 +1,18 @@
+# omnichart mini-language example
+title Scatter Demo
+
+# a few primitives
+circle x=120 y=120 r=5 fill=#44d6ff
+circle x=180 y=170 r=5 fill=#44d6ff
+circle x=220 y=150 r=5 fill=#44d6ff
+circle x=290 y=220 r=5 fill=#44d6ff
+
+line x1=80 y1=560 x2=960 y2=560 stroke=#888 width=1
+line x1=80 y1=560 x2=80 y2=40 stroke=#888 width=1
+
+rect x=420 y=340 w=110 h=80 fill=#ff6a3d stroke=#ffd9cc drag resize
+ellipse x=650 y=260 rx=60 ry=35 fill=#99ff55 stroke=#e7ffd0 drag resize
+
+text 'Scatter Demo' x=350 y=10 w=300 h=30 font=sans-serif fontsize=20 ha=center va=middle color=#ffffff drag resize
+
+
