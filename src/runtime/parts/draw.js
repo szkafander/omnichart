@@ -31,6 +31,22 @@ function drawPrimitive(primitive) {
   if (primitive.kind === "line")    { drawLine(primitive);    return; }
 }
 
+function isHovered(primitive) {
+  if (primitive._collection !== undefined) {
+    return state.hoveredEach !== null &&
+           state.hoveredEach.collection === primitive._collection &&
+           state.hoveredEach.index === primitive._eachIndex;
+  }
+  return state.hoverDisplay === primitive;
+}
+
+function hAttr(primitive, key) {
+  if (primitive.hover && isHovered(primitive) && key in primitive.hover) {
+    return primitive.hover[key];
+  }
+  return primitive[key];
+}
+
 function drawResizeHandles(primitive, visible) {
   if (!primitive.resize || !visible) return;
   var handles = getResizeHandles(primitive);

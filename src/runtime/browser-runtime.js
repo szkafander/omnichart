@@ -25,6 +25,8 @@ export const browserRuntimeSource = [
   "      handle: null,",
   "      hoverPrimitive: null,",
   "      hoverAxes: null,",
+  "      hoverDisplay: null,",
+  "      hoveredEach: null,",
   "      startX: 0,",
   "      startY: 0,",
   "      startLocalX: 0,",

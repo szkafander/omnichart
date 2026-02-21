@@ -39,11 +39,16 @@ function expandEach(node, scope) {
   }
 
   const results = [];
-  for (const row of data) {
+  for (let i = 0; i < data.length; i++) {
     const substituted = node.children.map((child) =>
-      substituteEachNode(child, node.variable, row)
+      substituteEachNode(child, node.variable, data[i])
     );
-    results.push(...expandNodes(substituted, scope));
+    const expanded = expandNodes(substituted, scope);
+    for (const prim of expanded) {
+      prim._collection = node.collection;
+      prim._eachIndex = i;
+    }
+    results.push(...expanded);
   }
   return results;
 }
@@ -112,6 +117,7 @@ function normalizeNode(node, scope) {
       stroke: stringOr(node.params.stroke, "#555"),
       strokeWidth: numberOr(node.params.strokeWidth, 1),
       origin: stringOr(node.params.origin, "top_left"),
+      hover: node.params.hover || null,
       pan: boolOr(node.params.pan, false),
       zoom: boolOr(node.params.zoom, false),
       drag: boolOr(node.params.drag, false),
@@ -140,7 +146,8 @@ function normalizePrimitive(shapeNode) {
       r: p.r ?? 2,
       fill: stringOr(p.fill, "#1f77b4"),
       drag: boolOr(p.drag, false),
-      resize: boolOr(p.resize, false)
+      resize: boolOr(p.resize, false),
+      hover: p.hover || null
     };
   }
 
@@ -157,7 +164,8 @@ function normalizePrimitive(shapeNode) {
       strokeWidth: numberOr(p.strokeWidth, 1),
       origin: stringOr(p.origin, "top_left"),
       drag: boolOr(p.drag, false),
-      resize: boolOr(p.resize, false)
+      resize: boolOr(p.resize, false),
+      hover: p.hover || null
     };
   }
 
@@ -173,7 +181,8 @@ function normalizePrimitive(shapeNode) {
       stroke: stringOr(p.stroke, ""),
       strokeWidth: numberOr(p.strokeWidth, 1),
       drag: boolOr(p.drag, false),
-      resize: boolOr(p.resize, false)
+      resize: boolOr(p.resize, false),
+      hover: p.hover || null
     };
   }
 
@@ -204,7 +213,8 @@ function normalizePrimitive(shapeNode) {
       resize: boolOr(p.resize, false),
       zoom: boolOr(p.zoom, false),
       scroll: boolOr(p.scroll, false),
-      scrollY: 0
+      scrollY: 0,
+      hover: p.hover || null
     };
   }
 
@@ -225,7 +235,8 @@ function normalizePrimitive(shapeNode) {
       arrowSize: numberOr(p.arrowsize, 10),
       arrowFill: stringOr(p.arrowfill, ""),
       cp1: null,
-      cp2: null
+      cp2: null,
+      hover: p.hover || null
     };
   }
 

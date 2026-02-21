@@ -110,7 +110,7 @@ function drawLine(primitive) {
   var y1 = resolveCoord(primitive.y1);
   var x2 = resolveCoord(primitive.x2);
   var y2 = resolveCoord(primitive.y2);
-  var isCB = primitive.route === "cb" || primitive.route === "cubic-bezier";
+  var isCB = primitive.route === "cubic-bezier";
 
   // Arrowhead direction unit vectors (computed below)
   var hdx, hdy, tdx, tdy, len;
@@ -122,7 +122,7 @@ function drawLine(primitive) {
       var dist = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)) || 1;
       if (dir1.dx === 0 && dir1.dy === 0) dir1 = { dx: (x2 - x1) / dist, dy: (y2 - y1) / dist };
       if (dir2.dx === 0 && dir2.dy === 0) dir2 = { dx: -(x2 - x1) / dist, dy: -(y2 - y1) / dist };
-      var t = dist * 0.4;
+      var t = dist * 0.5;
       if (!primitive.cp1) primitive.cp1 = { dx: dir1.dx * t, dy: dir1.dy * t };
       if (!primitive.cp2) primitive.cp2 = { dx: dir2.dx * t, dy: dir2.dy * t };
     }

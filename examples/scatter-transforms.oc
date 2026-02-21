@@ -1,22 +1,25 @@
 title Scatter Plot Transforms
 
-# Three scatter plots from the same data, each with a different y transform.
-# All axes support pan and zoom independently.
+c=#94a3b8
+fa=#0f172a
 
-text 'Raw y' x=a1.top_middle.x y=a1.top_middle.y w=320 h=22 origin=bottom_middle fontsize=13 ha=center color=#94a3b8
-text 'sqrt(y)' x=370 y=15 w=320 h=22 fontsize=13 ha=center color=#94a3b8
-text 'y^2' x=720 y=15 w=320 h=22 fontsize=13 ha=center color=#94a3b8
+text 'Raw y' l=a1._tm w=320 h=22 origin=_bm fontsize=13 ha=_c color=c
+text 'sqrt(y)' l=a2._tm w=320 h=22 origin=_bm fontsize=13 ha=_c color=c
+text 'y^2' l=a3._tm w=320 h=22 origin=_bm fontsize=13 ha=_c color=c
 
 bind data=transforms-data.csv
 
-  axes name=a1 x=20 y=45 w=320 h=240 fill=#0f172a stroke=#334155 pan zoom drag
+  axes name=a1 x=20 y=45 w=320 h=240 fill=fa stroke=#334155 pan zoom drag
     each d in data
       circle x=d.x*14+10 y=200-d.y*2 r=5 fill=#3b82f6
 
-  axes name=a2 x=370 y=45 w=320 h=240 fill=#0f172a stroke=#334155 pan zoom drag
+  axes name=a2 x=370 y=45 w=320 h=240 fill=fa stroke=#334155 pan zoom drag
     each d in data
       circle x=d.x*14+10 y=200-sqrt(d.y)*20 r=5 fill=#f97316
 
-  axes name=a3 x=720 y=45 w=320 h=240 fill=#0f172a stroke=#334155 pan zoom drag
+  axes name=a3 x=720 y=45 w=320 h=240 fill=fa stroke=#334155 pan zoom drag
     each d in data
       circle x=d.x*14+10 y=200-d.y**2/50 r=5 fill=#22c55e
+
+line l1=a1._mr l2=a2._ml route=_cb head handles
+line l1=a2._mr l2=a3._ml route=_cb head handles

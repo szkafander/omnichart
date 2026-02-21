@@ -4,8 +4,9 @@ function drawAxes(axes) {
   var w = resolveCoord(axes.w), h = resolveCoord(axes.h);
   var view = axes.view || (axes.view = { tx: 0, ty: 0, scale: 1 });
 
-  if (axes.fill) {
-    ctx.fillStyle = axes.fill;
+  var axesFill = hAttr(axes, "fill");
+  if (axesFill) {
+    ctx.fillStyle = axesFill;
     ctx.fillRect(x, y, w, h);
   }
 
@@ -23,8 +24,9 @@ function drawAxes(axes) {
   _drawScale = prevScale;
   ctx.restore();
 
-  if (axes.stroke) {
-    ctx.strokeStyle = axes.stroke;
+  var axesStroke = hAttr(axes, "stroke");
+  if (axesStroke) {
+    ctx.strokeStyle = axesStroke;
     ctx.lineWidth = axes.strokeWidth || 1;
     ctx.strokeRect(x, y, w, h);
   }

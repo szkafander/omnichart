@@ -5,11 +5,12 @@ function drawEllipse(primitive) {
   var ry = resolveCoord(primitive.ry);
   ctx.beginPath();
   ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
-  ctx.fillStyle = primitive.fill;
+  ctx.fillStyle = hAttr(primitive, "fill");
   ctx.fill();
-  if (primitive.stroke) {
-    ctx.strokeStyle = primitive.stroke;
-    ctx.lineWidth = primitive.strokeWidth || 1;
+  var stroke = hAttr(primitive, "stroke");
+  if (stroke) {
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = hAttr(primitive, "strokeWidth") || 1;
     ctx.stroke();
   }
   drawResizeHandles(primitive, shouldShowResizeHandles(primitive));

@@ -92,6 +92,25 @@ function onPointerMove(event) {
       draw();
     }
 
+    // Hover display state (for hover: attribute changes, including each-loop linked highlighting)
+    var hoverTarget = findHoverTarget(pointer.x, pointer.y);
+    var nextDisplay = hoverTarget ? hoverTarget.primitive : null;
+    var nextEachHover = null;
+    if (nextDisplay && nextDisplay._collection !== undefined) {
+      nextEachHover = { collection: nextDisplay._collection, index: nextDisplay._eachIndex };
+    }
+    var displayChanged = nextDisplay !== state.hoverDisplay;
+    var eachChanged = (nextEachHover === null) !== (state.hoveredEach === null) ||
+      (nextEachHover && state.hoveredEach && (
+        nextEachHover.collection !== state.hoveredEach.collection ||
+        nextEachHover.index !== state.hoveredEach.index
+      ));
+    if (displayChanged || eachChanged) {
+      state.hoverDisplay = nextDisplay;
+      state.hoveredEach = nextEachHover;
+      draw();
+    }
+
     // Bezier handle visibility: show immediately on hover, hide after a short delay
     if (nextHover && nextHover.kind === "line" && nextHover.handles) {
       if (_handleHideTimer) { clearTimeout(_handleHideTimer); _handleHideTimer = null; }
@@ -174,6 +193,8 @@ function onPointerLeave() {
   if (_handleHideTimer) { clearTimeout(_handleHideTimer); _handleHideTimer = null; }
   state.hoverPrimitive = null;
   state.hoverAxes = null;
+  state.hoverDisplay = null;
+  state.hoveredEach = null;
   state.handleVisibleFor = null;
   canvas.style.cursor = "default";
   draw();

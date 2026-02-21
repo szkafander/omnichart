@@ -77,13 +77,15 @@ function drawText(primitive) {
   var px = pos.x, py = pos.y;
   var pw = resolveCoord(primitive.w), ph = resolveCoord(primitive.h);
 
-  if (primitive.fill) {
-    ctx.fillStyle = primitive.fill;
+  var fill = hAttr(primitive, "fill");
+  if (fill) {
+    ctx.fillStyle = fill;
     ctx.fillRect(px, py, pw, ph);
   }
-  if (primitive.stroke) {
-    ctx.strokeStyle = primitive.stroke;
-    ctx.lineWidth = primitive.strokeWidth || 1;
+  var stroke = hAttr(primitive, "stroke");
+  if (stroke) {
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = hAttr(primitive, "strokeWidth") || 1;
     ctx.strokeRect(px, py, pw, ph);
   }
 
@@ -169,7 +171,7 @@ function drawText(primitive) {
     startY = textY;
   }
 
-  ctx.fillStyle = primitive.color || "#ffffff";
+  var textColor = hAttr(primitive, "color") || "#ffffff";
 
   for (var li = 0; li < wrappedLines.length; li++) {
     var line = wrappedLines[li];
@@ -189,14 +191,14 @@ function drawText(primitive) {
     for (var k = 0; k < line.length; k++) {
       var seg = line[k];
       ctx.font = buildFont(fontSize, fontFamily, seg.bold, seg.italic);
-      ctx.fillStyle = primitive.color || "#ffffff";
+      ctx.fillStyle = textColor;
       ctx.fillText(seg.text, curX, curY);
       if (seg.underline) {
         var ulY = curY + fontSize + 1;
         ctx.beginPath();
         ctx.moveTo(curX, ulY);
         ctx.lineTo(curX + seg.width, ulY);
-        ctx.strokeStyle = primitive.color || "#ffffff";
+        ctx.strokeStyle = textColor;
         ctx.lineWidth = Math.max(1, fontSize / 14);
         ctx.stroke();
       }

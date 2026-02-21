@@ -80,6 +80,28 @@ function findInteractionTargetInList(primitives, pointerX, pointerY, transform) 
   return null;
 }
 
+function findHoverTarget(x, y) {
+  return findHoverTargetInList(scene.primitives, x, y, { originX: 0, originY: 0, scale: 1 });
+}
+
+function findHoverTargetInList(primitives, pointerX, pointerY, transform) {
+  for (var i = primitives.length - 1; i >= 0; i--) {
+    var primitive = primitives[i];
+    if (primitive.kind === "axes") {
+      if (!isInsideAxesViewport(primitive, pointerX, pointerY, transform)) continue;
+      var childTransform = getAxesChildTransform(primitive, transform);
+      var childResult = findHoverTargetInList(primitive.children || [], pointerX, pointerY, childTransform);
+      if (childResult) return childResult;
+      continue;
+    }
+    var local = toLocalPoint(transform, pointerX, pointerY);
+    if (primitive.hover && hitTestPrimitive(primitive, local.x, local.y)) {
+      return { primitive: primitive };
+    }
+  }
+  return null;
+}
+
 function findAxesTarget(x, y) {
   return findAxesTargetInList(scene.primitives, x, y, { originX: 0, originY: 0, scale: 1 });
 }

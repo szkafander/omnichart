@@ -1,0 +1,20 @@
+title Linked Scatter — Hover Demo
+
+bg=#0f172a
+c1=#3b82f6
+c2=#f97316
+label=#94a3b8
+
+text 'x vs y' l=a1._tm w=300 h=22 origin=_bm fontsize=13 ha=_c color=label
+text 'x vs z' l=a2._tm w=300 h=22 origin=_bm fontsize=13 ha=_c color=label
+text 'Hover any point to cross-highlight across both plots' x=30 y=332 w=640 h=18 fontsize=12 ha=_c color=#475569
+
+bind data=hover-data.csv
+
+  axes name=a1 x=30 y=50 w=300 h=250 fill=bg stroke=#334155 pan zoom drag
+    each d in data
+      circle x=d.x*28+10 y=240-d.y*2 r=5 fill=c1 hover:fill=#ffffff hover:r=9
+
+  axes name=a2 x=370 y=50 w=300 h=250 fill=bg stroke=#334155 pan zoom drag
+    each d in data
+      circle x=d.x*28+10 y=240-d.z*2 r=5 fill=c2 hover:fill=#ffffff hover:r=9

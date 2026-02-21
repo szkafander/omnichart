@@ -1,8 +1,21 @@
+// Anchor abbreviations — _prefix is reserved, cannot be used as variable names.
+const _ABBREVS = {
+  _tl: "top_left",    _tm: "top_middle",   _tr: "top_right",
+  _ml: "middle_left", _c:  "center",       _mr: "middle_right",
+  _bl: "bottom_left", _bm: "bottom_middle", _br: "bottom_right",
+  _cb: "cubic-bezier"
+};
+
+function expandAbbreviations(str) {
+  return str.replace(/_(?:tl|tm|tr|ml|c|mr|bl|bm|br|cb)\b/g, m => _ABBREVS[m]);
+}
+
 export function parseDocument(source, options = {}) {
   const directives = [];
   const nodes = [];
   const root = { type: "root", children: nodes };
   const stack = [{ indent: -1, node: root }];
+  const vars = {};  // file-level variable definitions
 
   for (const rawLine of source.split(/\r?\n/)) {
     if (!rawLine.trim()) continue;
@@ -25,6 +38,18 @@ export function parseDocument(source, options = {}) {
       }
       directives.push({ type: head, tokens });
       continue;
+    }
+
+    // Variable definition: top-level bare "key=value" token.
+    // Keys starting with _ are reserved for abbreviations and cannot be variables.
+    if (parent === root && head.includes("=")) {
+      const eqIdx = head.indexOf("=");
+      const varKey = head.slice(0, eqIdx);
+      const varRaw = head.slice(eqIdx + 1);
+      if (/^\w+$/.test(varKey) && !varKey.startsWith("_") && varRaw) {
+        vars[varKey] = parseValue(varRaw, vars);
+        continue;
+      }
     }
 
     if (head === "bind") {
@@ -87,7 +112,7 @@ export function parseDocument(source, options = {}) {
     if (head === "axes") {
       const axesNode = {
         type: "axes",
-        params: parseTokens(tokens, { sourcePath: options.sourcePath, line: trimmed }),
+        params: parseTokens(tokens, { sourcePath: options.sourcePath, line: trimmed }, vars),
         children: []
       };
       parent.children.push(axesNode);
@@ -111,7 +136,7 @@ export function parseDocument(source, options = {}) {
         shape: "text",
         params: {
           text: textValue,
-          ...parseTokens(paramTokens, { sourcePath: options.sourcePath, line: trimmed })
+          ...parseTokens(paramTokens, { sourcePath: options.sourcePath, line: trimmed }, vars)
         }
       });
       continue;
@@ -121,7 +146,7 @@ export function parseDocument(source, options = {}) {
       parent.children.push({
         type: "shape",
         shape: head,
-        params: parseTokens(tokens, { sourcePath: options.sourcePath, line: trimmed })
+        params: parseTokens(tokens, { sourcePath: options.sourcePath, line: trimmed }, vars)
       });
       continue;
     }
@@ -132,7 +157,7 @@ export function parseDocument(source, options = {}) {
   return { kind: "Program", directives, nodes };
 }
 
-function parseTokens(tokens, context) {
+function parseTokens(tokens, context, vars) {
   const out = {};
 
   for (const token of tokens) {
@@ -148,23 +173,57 @@ function parseTokens(tokens, context) {
     if (!rawValue) {
       throw new Error(`Expected key=value token, got "${token}" in ${context.line}`);
     }
-    out[key] = parseValue(rawValue);
+    if (key.startsWith("hover:")) {
+      const hoverKey = key.slice(6);
+      if (!out.hover) out.hover = {};
+      out.hover[hoverKey] = parseValue(rawValue, vars);
+      continue;
+    }
+    out[key] = parseValue(rawValue, vars);
   }
 
-  return out;
+  return expandLocation(out, vars);
 }
 
-function parseValue(value) {
-  if ((value.startsWith("'") && value.endsWith("'")) ||
-      (value.startsWith('"') && value.endsWith('"'))) {
-    return value.slice(1, -1);
+// Expand l / l1 / l2 location shorthands into coordinate pairs.
+//   l=name.anchor  →  x=name.anchor.x  y=name.anchor.y
+//   l=name         →  x=name.x         y=name.y
+//   l=n,m          →  x=n              y=m
+// l1/l2 expand to x1/y1 and x2/y2 respectively (for lines).
+// Explicit x/y always take precedence over l.
+function expandLocation(params, vars) {
+  for (const [lk, xk, yk] of [["l", "x", "y"], ["l1", "x1", "y1"], ["l2", "x2", "y2"]]) {
+    if (!(lk in params)) continue;
+    const val = params[lk];
+    delete params[lk];
+    if (typeof val === "string" && val.includes(",")) {
+      const [a, b] = val.split(",");
+      if (!(xk in params)) params[xk] = parseValue(a.trim(), vars);
+      if (!(yk in params)) params[yk] = parseValue(b.trim(), vars);
+    } else {
+      const base = String(val);
+      if (!(xk in params)) params[xk] = base + ".x";
+      if (!(yk in params)) params[yk] = base + ".y";
+    }
   }
-  if (/^-?\d+(\.\d+)?$/.test(value)) {
-    return Number(value);
+  return params;
+}
+
+// Parse a raw value string into the appropriate JS type.
+// Order: quoted string → abbreviation expansion → variable lookup → number → bool → string.
+function parseValue(rawValue, vars) {
+  // Quoted string: expand abbreviations inside and return the inner string.
+  if ((rawValue.startsWith("'") && rawValue.endsWith("'")) ||
+      (rawValue.startsWith('"') && rawValue.endsWith('"'))) {
+    return expandAbbreviations(rawValue.slice(1, -1));
   }
-  if (value === "true") return true;
-  if (value === "false") return false;
-  return value;
+  // Expand anchor abbreviations, then try variable substitution.
+  const expanded = expandAbbreviations(rawValue);
+  if (vars && Object.prototype.hasOwnProperty.call(vars, expanded)) return vars[expanded];
+  if (/^-?\d+(\.\d+)?$/.test(expanded)) return Number(expanded);
+  if (expanded === "true") return true;
+  if (expanded === "false") return false;
+  return expanded;
 }
 
 function tokenize(str) {
@@ -182,14 +241,8 @@ function isShape(head) {
 function getIndent(line) {
   let count = 0;
   for (const char of line) {
-    if (char === " ") {
-      count += 1;
-      continue;
-    }
-    if (char === "\t") {
-      count += 2;
-      continue;
-    }
+    if (char === " ") { count += 1; continue; }
+    if (char === "\t") { count += 2; continue; }
     break;
   }
   return count;
